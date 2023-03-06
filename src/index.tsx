@@ -1,19 +1,32 @@
 import React from 'react';
+import {TinyI18NProvider, TinyI18N, pluralizeEn, pluralizeRu} from 'tiny-i18n';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {ru} from "./keys/ru";
+import {en} from "./keys/en";
+
+const tinyI18N = new TinyI18N({
+    defaultLang: "ru",
+    languages: {
+        en: {
+            keyset: en,
+            pluralize: pluralizeEn,
+        },
+        ru: {
+            keyset: ru,
+            pluralize: pluralizeRu,
+        },
+    },
+});
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <TinyI18NProvider tinyI18N={tinyI18N}>
+            <App/>
+        </TinyI18NProvider>
+    </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
